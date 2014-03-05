@@ -20,6 +20,7 @@
 @synthesize mainScrollerView;
 @synthesize cellImage;
 @synthesize cellImageView;
+@synthesize delegate;
 
 static CGFloat lastScale = 0.0;
 
@@ -67,10 +68,11 @@ static CGFloat lastScale = 0.0;
     [mainScrollerView setContentSize:CGSizeMake(currentSize.width + 1, currentSize.height + 1)];
     mainScrollerView.multipleTouchEnabled=YES;
     mainScrollerView.minimumZoomScale=1.0;
-    mainScrollerView.maximumZoomScale=2.0;
+    mainScrollerView.maximumZoomScale=3.0;
     mainScrollerView.delegate=self;
     mainScrollerView.showsHorizontalScrollIndicator = NO;
     mainScrollerView.showsVerticalScrollIndicator = NO;
+    mainScrollerView.scrollEnabled = YES;
     mainScrollerView.backgroundColor = [UIColor grayColor];
     
     // cell imageview
@@ -124,9 +126,11 @@ static CGFloat lastScale = 0.0;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if(((fabs(scrollView.contentOffset.x) / self.frame.size.width) > 0.5) &&
-       ((fabs(scrollView.contentOffset.y) / self.frame.size.height) > 0.5)){
-        
+    if(((fabs(scrollView.contentOffset.x) / self.frame.size.width) > 0.3) ||
+       ((fabs(scrollView.contentOffset.y) / self.frame.size.height) > 0.3)){
+        if ([delegate respondsToSelector:@selector(cellImageRemoveFromSuperView:)]) {
+            [delegate cellImageRemoveFromSuperView:0];
+        }
     }
 }
 
