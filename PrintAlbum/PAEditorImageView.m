@@ -23,15 +23,19 @@
         self.backgroundColor = [UIColor whiteColor];
         
         PAImageVIewCell *cell1 = [[PAImageVIewCell alloc] initWithFrame:CGRectMake(10, 20, 200, 400) withImage:@"11.png"];
+        cell1.tag = 101;
         cell1.delegate = self;
         
         PAImageVIewCell *cell2 = [[PAImageVIewCell alloc] initWithFrame:CGRectMake(250, 20, 300, 400) withImage:@"22.png"];
+        cell2.tag = 102;
         cell2.delegate = self;
 
         PAImageVIewCell *cell3 = [[PAImageVIewCell alloc] initWithFrame:CGRectMake(10, 450, 200, 100) withImage:@"33.png"];
+        cell3.tag = 103;
         cell3.delegate = self;
 
         PAImageVIewCell *cell4 = [[PAImageVIewCell alloc] initWithFrame:CGRectMake(250, 420, 400, 400) withImage:@"44.png"];
+        cell4.tag = 104;
         cell4.delegate = self;
 
         [self addSubview:cell1];
@@ -52,9 +56,14 @@
     
 }
 
+#pragma mark cellImagdDelegate
+
 - (void)cellImageRemoveFromSuperView:(NSInteger)viewTag
 {
-    NSLog(@"cellImageRemoveFromSuperView");
+    PAImageVIewCell *cell4 = (PAImageVIewCell *)[self viewWithTag:viewTag];
+    if (cell4.mainScrollerView.dragging == YES && cell4.backView.hidden == NO) {
+        cell4.backView.hidden = YES;
+    }
 }
 
 

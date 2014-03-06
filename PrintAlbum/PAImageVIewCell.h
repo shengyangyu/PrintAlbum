@@ -17,9 +17,16 @@
 
 @interface PAImageVIewCell : UIView
 
+@property (nonatomic,strong) UIView *backView;
+@property (nonatomic,strong) UIScrollView *mainScrollerView;
+@property (nonatomic,strong) UIImageView  *cellImageView;
+@property (nonatomic,strong) UIImage *cellImage;
+@property (nonatomic,getter=isHiddenLayer) BOOL hiddenLayer;
+@property (nonatomic, assign) id /*<PAImageVIewCellDelegate>*/ delegate;
+
 // init for iamgeview cell
 - (id)initWithFrame:(CGRect)frame withImage:(NSString *)imageName;
-
-@property (nonatomic, assign) id /*<PAImageVIewCellDelegate>*/ delegate;
+// hidden or display layer
+- (void)displayOrHiddenViewLayer:(BOOL)isHidden;
 
 @end

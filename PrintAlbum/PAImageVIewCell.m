@@ -7,28 +7,32 @@
 //
 
 #import "PAImageVIewCell.h"
+#import <QuartzCore/QuartzCore.h>
+#import "UIImageView+Touches.h"
+
 
 @interface PAImageVIewCell ()<UIGestureRecognizerDelegate,UIScrollViewDelegate>
 
-@property (nonatomic,strong) UIScrollView *mainScrollerView;
-@property (nonatomic,strong) UIImageView  *cellImageView;
-@property (nonatomic,strong) UIImage *cellImage;
+
 
 @end
 
 @implementation PAImageVIewCell
+@synthesize backView;
 @synthesize mainScrollerView;
 @synthesize cellImage;
 @synthesize cellImageView;
 @synthesize delegate;
-
-static CGFloat lastScale = 0.0;
+@synthesize hiddenLayer;
 
 - (id)initWithFrame:(CGRect)frame withImage:(NSString *)imageName
 {
     self = [super initWithFrame:frame];
     if (self) {
         self.cellImage = [UIImage imageNamed:imageName];
+        self.backgroundColor = [UIColor grayColor];
+        self.layer.borderColor = [[UIColor redColor] CGColor];
+        hiddenLayer = YES;
     }
     return self;
 }
@@ -38,6 +42,8 @@ static CGFloat lastScale = 0.0;
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
+    backView = [[UIView alloc] initWithFrame:rect];
+    
     CGSize currentSize;
     // adapt to small size
     if (rect.size.width < rect.size.height) {
@@ -64,17 +70,18 @@ static CGFloat lastScale = 0.0;
     }
     
     // main scrollerview
-    mainScrollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, rect.size.width, rect.size.height)];
+    mainScrollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, rect.size.width,rect.size.height)];
     [mainScrollerView setContentSize:CGSizeMake(currentSize.width + 1, currentSize.height + 1)];
     mainScrollerView.multipleTouchEnabled=YES;
-    mainScrollerView.minimumZoomScale=1.0;
+    mainScrollerView.minimumZoomScale=1.1;
     mainScrollerView.maximumZoomScale=3.0;
     mainScrollerView.delegate=self;
     mainScrollerView.showsHorizontalScrollIndicator = NO;
     mainScrollerView.showsVerticalScrollIndicator = NO;
     mainScrollerView.scrollEnabled = YES;
     mainScrollerView.backgroundColor = [UIColor grayColor];
-    
+    mainScrollerView.canCancelContentTouches = YES;
+    mainScrollerView.delaysContentTouches = NO;
     // cell imageview
     cellImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, currentSize.width, currentSize.height)];
     cellImageView.image = cellImage;
@@ -83,31 +90,33 @@ static CGFloat lastScale = 0.0;
     [mainScrollerView addSubview:cellImageView];
     
     // GestureRecognizer
-    UIPinchGestureRecognizer *pinGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinMethod:)];
-    [pinGesture setDelegate:self];
-    //[cellImageView addGestureRecognizer:pinGesture];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapMethod:)];
+    [tapGesture setDelegate:self];
+    tapGesture.numberOfTapsRequired = 1;
+    tapGesture.numberOfTouchesRequired = 1;
+    [cellImageView addGestureRecognizer:tapGesture];
     
-    
-    
-    [self addSubview:mainScrollerView];
-    //mainScrollerView.center = self.center;
-    self.clipsToBounds = YES;
+    [backView addSubview:mainScrollerView];
+    [self addSubview:backView];
+    backView.clipsToBounds = YES;
     
 }
 
-- (void)pinMethod:(UIPinchGestureRecognizer *)sender
+- (void)tapMethod:(UITapGestureRecognizer *)sender
 {
-    // when pin end scale = 1.0
-    if([sender state] == UIGestureRecognizerStateEnded)
-    {
-        lastScale = 1.0;
-        return;
+    [self displayOrHiddenViewLayer:!hiddenLayer];
+}
+
+#pragma mark set view layer
+- (void)displayOrHiddenViewLayer:(BOOL)isHidden
+{
+    if (isHidden == YES) {
+        self.layer.borderWidth = 0;
+        hiddenLayer = YES;
+    }else{
+        self.layer.borderWidth = 4;
+        hiddenLayer = NO;
     }
-    CGFloat scale = 1.0 - (lastScale - [(UIPinchGestureRecognizer*)sender scale]);
-    CGAffineTransform currentTransform = cellImageView.transform;
-    CGAffineTransform nextTransform = CGAffineTransformScale(currentTransform, scale, scale);
-    [cellImageView setTransform:nextTransform];
-    lastScale = [sender scale];
 }
 
 #pragma mark UIScrollView delegate methods
@@ -123,15 +132,29 @@ static CGFloat lastScale = 0.0;
     CGFloat offsetY = (scrollView.bounds.size.height > scrollView.contentSize.height)?(scrollView.bounds.size.height - scrollView.contentSize.height)/2 : 0.0;
     self.cellImageView.center = CGPointMake(scrollView.contentSize.width/2 + offsetX,scrollView.contentSize.height/2 + offsetY);
 }
-
+// hidden scrollerview
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    [self displayOrHiddenViewLayer:YES];
+    if (scrollView.dragging == NO) {
+        return;
+    }
     if(((fabs(scrollView.contentOffset.x) / self.frame.size.width) > 0.3) ||
        ((fabs(scrollView.contentOffset.y) / self.frame.size.height) > 0.3)){
         if ([delegate respondsToSelector:@selector(cellImageRemoveFromSuperView:)]) {
-            [delegate cellImageRemoveFromSuperView:0];
+            [delegate cellImageRemoveFromSuperView:self.tag];
         }
     }
+}
+// if dragging end scrllerview need dispaly
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    self.backView.hidden = NO;
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"touchesBegan1");
 }
 
 @end
