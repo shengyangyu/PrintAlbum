@@ -11,10 +11,12 @@
 
 @interface PAEditorImageView ()<PAImageVIewCellDelegate>
 
+@property (nonatomic,strong)UIImageView *tempImageView;
+
 @end
 
 @implementation PAEditorImageView
-
+@synthesize tempImageView;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -42,6 +44,12 @@
         [self addSubview:cell2];
         [self addSubview:cell3];
         [self addSubview:cell4];
+        
+        // temp imageview
+        tempImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+        tempImageView.hidden = YES;
+        [self addSubview:tempImageView];
+        
     }
     return self;
 }
@@ -58,13 +66,28 @@
 
 #pragma mark cellImagdDelegate
 
-- (void)cellImageRemoveFromSuperView:(NSInteger)viewTag
+- (void)cellImageDrggingOutView:(NSInteger)viewTag withPoint:(CGPoint)tPoint
 {
-    PAImageVIewCell *cell4 = (PAImageVIewCell *)[self viewWithTag:viewTag];
-    if (cell4.mainScrollerView.dragging == YES && cell4.backView.hidden == NO) {
-        cell4.backView.hidden = YES;
+    PAImageVIewCell *cell = (PAImageVIewCell *)[self viewWithTag:viewTag];
+    // set temp imageview
+    if (tempImageView.tag != viewTag) {
+        UIImage *img = [UIImage imageNamed:@"11.png"];
+        tempImageView.tag = viewTag;
+        tempImageView.image = img;
+        tempImageView.frame = CGRectMake(tPoint.x, tPoint.y, img.size.width/6, img.size.height/6);
     }
+    // display temp imageview
+    if (tempImageView.hidden == YES && cell.backView.hidden == YES) {
+        tempImageView.hidden = NO;
+    }
+    // set temp imageview center to touch piont
+    tempImageView.center = tPoint;
 }
 
+- (void)cellImageDrggingEnd:(NSInteger)viewTag
+{
+    // hidden temp imageview when dragging end
+    tempImageView.hidden = YES;
+}
 
 @end

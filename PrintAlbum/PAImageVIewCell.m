@@ -8,7 +8,7 @@
 
 #import "PAImageVIewCell.h"
 #import <QuartzCore/QuartzCore.h>
-#import "UIImageView+Touches.h"
+
 
 
 @interface PAImageVIewCell ()<UIGestureRecognizerDelegate,UIScrollViewDelegate>
@@ -135,26 +135,34 @@
 // hidden scrollerview
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    // Hidden red layer
     [self displayOrHiddenViewLayer:YES];
+    // when dragging need get touch point everytime
+    CGPoint touchPoint = [scrollView.panGestureRecognizer locationInView:[[self superview] superview]];
+    // NSLog(@"--%@",NSStringFromCGPoint(touchPoint));
+    if ([delegate respondsToSelector:@selector(cellImageDrggingOutView:withPoint:)]) {
+        [delegate cellImageDrggingOutView:self.tag withPoint:touchPoint];
+    }
+    // when scale or other return
     if (scrollView.dragging == NO) {
         return;
     }
-    if(((fabs(scrollView.contentOffset.x) / self.frame.size.width) > 0.3) ||
-       ((fabs(scrollView.contentOffset.y) / self.frame.size.height) > 0.3)){
-        if ([delegate respondsToSelector:@selector(cellImageRemoveFromSuperView:)]) {
-            [delegate cellImageRemoveFromSuperView:self.tag];
-        }
+    // when touch out self view && image not hidden then will need hidden image
+    CGPoint imageCellpoint = [scrollView.panGestureRecognizer locationInView:[self superview]];
+    if (!CGRectContainsPoint(self.bounds,imageCellpoint) && backView.hidden == NO) {
+        backView.hidden = YES;
     }
 }
 // if dragging end scrllerview need dispaly
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
+    // the scrollview and imageview need dispaly
     self.backView.hidden = NO;
+    // when drgging end need hidden the temp imageview
+    if ([delegate respondsToSelector:@selector(cellImageDrggingEnd:)]) {
+        [delegate cellImageDrggingEnd:self.tag];
+    }
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    NSLog(@"touchesBegan1");
-}
 
 @end

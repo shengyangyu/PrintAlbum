@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+//#import "UIScrollView+Touches.h"
+//#import "UIImageView+Touches.h"
 
 @protocol PAImageVIewCellDelegate <NSObject>
 
 @optional
-- (void)cellImageRemoveFromSuperView:(NSInteger)viewTag;
+- (void)cellImageDrggingOutView:(NSInteger)viewTag withPoint:(CGPoint)tPoint;
+
+- (void)cellImageDrggingEnd:(NSInteger)viewTag;
 
 @end
 
