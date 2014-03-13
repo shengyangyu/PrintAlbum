@@ -10,7 +10,6 @@
 #import <QuartzCore/QuartzCore.h>
 
 
-
 @interface PAImageVIewCell ()<UIGestureRecognizerDelegate,UIScrollViewDelegate>
 
 
@@ -24,12 +23,14 @@
 @synthesize cellImageView;
 @synthesize delegate;
 @synthesize hiddenLayer;
+@synthesize tempImageName;
 
 - (id)initWithFrame:(CGRect)frame withImage:(NSString *)imageName
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.cellImage = [UIImage imageNamed:imageName];
+        cellImage = [UIImage imageNamed:imageName];
+        tempImageName = [NSString stringWithFormat:@"%@",imageName];
         self.backgroundColor = [UIColor grayColor];
         self.layer.borderColor = [[UIColor redColor] CGColor];
         hiddenLayer = YES;
@@ -37,11 +38,25 @@
     return self;
 }
 
-
+- (void)drawImageAddView:(NSString *)imageName withFrame:(CGRect)frame
+{
+    if (cellImage) {
+        cellImage = nil;
+    }
+    self.backgroundColor = [UIColor grayColor];
+    self.layer.borderColor = [[UIColor redColor] CGColor];
+    tempImageName = [NSString stringWithFormat:@"%@",imageName];
+    cellImage = [UIImage imageNamed:imageName];
+    hiddenLayer = YES;
+    [self setNeedsDisplayInRect:frame];
+}
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
+    if (backView) {
+        backView = nil;
+    }
     backView = [[UIView alloc] initWithFrame:rect];
     
     CGSize currentSize;
@@ -70,6 +85,9 @@
     }
     
     // main scrollerview
+    if (mainScrollerView) {
+        mainScrollerView = nil;
+    }
     mainScrollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, rect.size.width,rect.size.height)];
     [mainScrollerView setContentSize:CGSizeMake(currentSize.width + 1, currentSize.height + 1)];
     mainScrollerView.multipleTouchEnabled=YES;
@@ -83,6 +101,9 @@
     mainScrollerView.canCancelContentTouches = YES;
     mainScrollerView.delaysContentTouches = NO;
     // cell imageview
+    if (cellImageView) {
+        cellImageView = nil;
+    }
     cellImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, currentSize.width, currentSize.height)];
     cellImageView.image = cellImage;
     cellImageView.userInteractionEnabled = YES;
@@ -137,19 +158,23 @@
 {
     // Hidden red layer
     [self displayOrHiddenViewLayer:YES];
-    // when dragging need get touch point everytime
-    CGPoint touchPoint = [scrollView.panGestureRecognizer locationInView:[[self superview] superview]];
-    // NSLog(@"--%@",NSStringFromCGPoint(touchPoint));
-    if ([delegate respondsToSelector:@selector(cellImageDrggingOutView:withPoint:)]) {
-        [delegate cellImageDrggingOutView:self.tag withPoint:touchPoint];
-    }
     // when scale or other return
     if (scrollView.dragging == NO) {
         return;
     }
+    // when scale imageview need return
+    if (scrollView.panGestureRecognizer.numberOfTouches != 1) {
+        return;
+    }
+    // when dragging need get touch point everytime
+    CGPoint touchPoint = [scrollView.panGestureRecognizer locationInView:[[self superview] superview]];
+    // NSLog(@"--%@,%@",NSStringFromCGPoint(touchPoint),NSStringFromCGRect([[self superview] superview].frame));
+    if ([delegate respondsToSelector:@selector(cellImageDrggingOutView:withPoint:)]) {
+        [delegate cellImageDrggingOutView:self.tag withPoint:touchPoint];
+    }
     // when touch out self view && image not hidden then will need hidden image
     CGPoint imageCellpoint = [scrollView.panGestureRecognizer locationInView:[self superview]];
-    if (!CGRectContainsPoint(self.bounds,imageCellpoint) && backView.hidden == NO) {
+    if (!CGRectContainsPoint(self.frame,imageCellpoint) && backView.hidden == NO) {
         backView.hidden = YES;
     }
 }
@@ -158,9 +183,11 @@
 {
     // the scrollview and imageview need dispaly
     self.backView.hidden = NO;
+    // when dragging need get touch point everytime
+    CGPoint touchPoint = [scrollView.panGestureRecognizer locationInView:[[self superview] superview]];
     // when drgging end need hidden the temp imageview
-    if ([delegate respondsToSelector:@selector(cellImageDrggingEnd:)]) {
-        [delegate cellImageDrggingEnd:self.tag];
+    if ([delegate respondsToSelector:@selector(cellImageDrggingEnd:withPoint:)]) {
+        [delegate cellImageDrggingEnd:self.tag withPoint:touchPoint];
     }
 }
 

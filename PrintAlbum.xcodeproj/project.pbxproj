@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		9549ECD118C83DD500283CFC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9549ECD018C83DD500283CFC /* QuartzCore.framework */; };
-		9549ECD718C84CC200283CFC /* UIImageView+Touches.m in Sources */ = {isa = PBXBuildFile; fileRef = 9549ECD618C84CC200283CFC /* UIImageView+Touches.m */; };
 		95816BF518C5AF3500D518C5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95816BF418C5AF3500D518C5 /* Foundation.framework */; };
 		95816BF718C5AF3500D518C5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95816BF618C5AF3500D518C5 /* CoreGraphics.framework */; };
 		95816BF918C5AF3500D518C5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95816BF818C5AF3500D518C5 /* UIKit.framework */; };
@@ -22,8 +21,6 @@
 		95816C1818C5AF3500D518C5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 95816C1618C5AF3500D518C5 /* InfoPlist.strings */; };
 		95816C1A18C5AF3500D518C5 /* PrintAlbumTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 95816C1918C5AF3500D518C5 /* PrintAlbumTests.m */; };
 		95816C2518C5AF6D00D518C5 /* PAMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95816C2418C5AF6D00D518C5 /* PAMainViewController.m */; };
-		95854C1618C9640E00729552 /* UIScrollView+Touches.m in Sources */ = {isa = PBXBuildFile; fileRef = 95854C1518C9640E00729552 /* UIScrollView+Touches.m */; };
-		95854CD818C9995B00729552 /* UIViewController+Touches.m in Sources */ = {isa = PBXBuildFile; fileRef = 95854CD718C9995B00729552 /* UIViewController+Touches.m */; };
 		95B1B13218C6AC07001E22A7 /* PAImageVIewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B1B13118C6AC07001E22A7 /* PAImageVIewCell.m */; };
 		95B1B13518C6D0C0001E22A7 /* 22.png in Resources */ = {isa = PBXBuildFile; fileRef = 95B1B13318C6D0C0001E22A7 /* 22.png */; };
 		95B1B13618C6D0C0001E22A7 /* 11.png in Resources */ = {isa = PBXBuildFile; fileRef = 95B1B13418C6D0C0001E22A7 /* 11.png */; };
@@ -44,8 +41,6 @@
 
 /* Begin PBXFileReference section */
 		9549ECD018C83DD500283CFC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		9549ECD518C84CC200283CFC /* UIImageView+Touches.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Touches.h"; sourceTree = "<group>"; };
-		9549ECD618C84CC200283CFC /* UIImageView+Touches.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Touches.m"; sourceTree = "<group>"; };
 		95816BF118C5AF3500D518C5 /* PrintAlbum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrintAlbum.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95816BF418C5AF3500D518C5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		95816BF618C5AF3500D518C5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -64,10 +59,6 @@
 		95816C1918C5AF3500D518C5 /* PrintAlbumTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrintAlbumTests.m; sourceTree = "<group>"; };
 		95816C2318C5AF6D00D518C5 /* PAMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAMainViewController.h; sourceTree = "<group>"; };
 		95816C2418C5AF6D00D518C5 /* PAMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAMainViewController.m; sourceTree = "<group>"; };
-		95854C1418C9640E00729552 /* UIScrollView+Touches.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+Touches.h"; sourceTree = "<group>"; };
-		95854C1518C9640E00729552 /* UIScrollView+Touches.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+Touches.m"; sourceTree = "<group>"; };
-		95854CD618C9995B00729552 /* UIViewController+Touches.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Touches.h"; sourceTree = "<group>"; };
-		95854CD718C9995B00729552 /* UIViewController+Touches.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Touches.m"; sourceTree = "<group>"; };
 		95B1B13018C6AC07001E22A7 /* PAImageVIewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAImageVIewCell.h; sourceTree = "<group>"; };
 		95B1B13118C6AC07001E22A7 /* PAImageVIewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAImageVIewCell.m; sourceTree = "<group>"; };
 		95B1B13318C6D0C0001E22A7 /* 22.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 22.png; sourceTree = "<group>"; };
@@ -137,12 +128,6 @@
 		95816BFA18C5AF3500D518C5 /* PrintAlbum */ = {
 			isa = PBXGroup;
 			children = (
-				95854C1418C9640E00729552 /* UIScrollView+Touches.h */,
-				95854C1518C9640E00729552 /* UIScrollView+Touches.m */,
-				9549ECD518C84CC200283CFC /* UIImageView+Touches.h */,
-				9549ECD618C84CC200283CFC /* UIImageView+Touches.m */,
-				95854CD618C9995B00729552 /* UIViewController+Touches.h */,
-				95854CD718C9995B00729552 /* UIViewController+Touches.m */,
 				95B1B13918C7078D001E22A7 /* 44.png */,
 				95B1B13718C6FB1A001E22A7 /* 33.png */,
 				95B1B13318C6D0C0001E22A7 /* 22.png */,
@@ -291,13 +276,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95854CD818C9995B00729552 /* UIViewController+Touches.m in Sources */,
 				95816C2518C5AF6D00D518C5 /* PAMainViewController.m in Sources */,
 				95816C0118C5AF3500D518C5 /* main.m in Sources */,
 				95B1B13D18C711E0001E22A7 /* PAEditorImageView.m in Sources */,
-				9549ECD718C84CC200283CFC /* UIImageView+Touches.m in Sources */,
 				95816C0518C5AF3500D518C5 /* PAAppDelegate.m in Sources */,
-				95854C1618C9640E00729552 /* UIScrollView+Touches.m in Sources */,
 				95B1B13218C6AC07001E22A7 /* PAImageVIewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -357,8 +339,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: WENJIN ZHANG (5XF78238UH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: WENJIN ZHANG (5XF78238UH)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: hui tian (AD2W7FP84T)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: hui tian (AD2W7FP84T)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -398,8 +380,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: WENJIN ZHANG (5XF78238UH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: WENJIN ZHANG (5XF78238UH)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: hui tian (AD2W7FP84T)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: hui tian (AD2W7FP84T)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -421,7 +403,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: WENJIN ZHANG (5XF78238UH)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: hui tian (AD2W7FP84T)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PrintAlbum/PrintAlbum-Prefix.pch";
 				INFOPLIST_FILE = "PrintAlbum/PrintAlbum-Info.plist";
@@ -435,7 +417,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: WENJIN ZHANG (5XF78238UH)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: hui tian (AD2W7FP84T)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PrintAlbum/PrintAlbum-Prefix.pch";
 				INFOPLIST_FILE = "PrintAlbum/PrintAlbum-Info.plist";

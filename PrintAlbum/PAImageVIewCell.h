@@ -13,14 +13,16 @@
 @protocol PAImageVIewCellDelegate <NSObject>
 
 @optional
+
 - (void)cellImageDrggingOutView:(NSInteger)viewTag withPoint:(CGPoint)tPoint;
 
-- (void)cellImageDrggingEnd:(NSInteger)viewTag;
+- (void)cellImageDrggingEnd:(NSInteger)viewTag withPoint:(CGPoint)tPoint;
 
 @end
 
 @interface PAImageVIewCell : UIView
 
+@property (nonatomic,strong) NSString *tempImageName;
 @property (nonatomic,strong) UIView *backView;
 @property (nonatomic,strong) UIScrollView *mainScrollerView;
 @property (nonatomic,strong) UIImageView  *cellImageView;
@@ -32,5 +34,7 @@
 - (id)initWithFrame:(CGRect)frame withImage:(NSString *)imageName;
 // hidden or display layer
 - (void)displayOrHiddenViewLayer:(BOOL)isHidden;
+// redraw 
+- (void)drawImageAddView:(NSString *)imageName withFrame:(CGRect)frame;
 
 @end
